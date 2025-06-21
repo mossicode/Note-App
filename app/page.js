@@ -12,19 +12,13 @@ export default function Home(){
     <>
      
   <div className="m-4 min-h-96">
-    <Header setFiltered={setFiltered} name="All Note" />
+    <Header setFiltered={setFiltered} name="All Note"  />
   </div>
 
-  <div className="m-4">
-    <Header setFiltered={setFiltered} name="Search Note" />
-  </div>
 
-  <div className="grid grid-cols-3">
-    {
-      filtered.map(item =>(
-        <Note  {...item} key={item.id}/>
-      ))
-    }
+
+  <div className="grid grid-cols-3 max-sm:grid-cols-1">
+   
   </div>
     </>
   );

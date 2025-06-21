@@ -1,6 +1,8 @@
 // import { formatData } from "./storage";
 
-function Note({ deleteHandler, title,description, id ,archived, changeState, createAt}) {
+import { useEffect, useState } from "react";
+
+function Note({stated, deleteHandler, title,description, id ,archived, createAt}) {
     const data=JSON.parse(localStorage.getItem("notes"));
     const d= new  Date(createAt);
 
@@ -29,29 +31,45 @@ function Note({ deleteHandler, title,description, id ,archived, changeState, cre
       if (this.getDay() == 6) {return "Sat"};
      
     };
-    
+
+    const [backgrnd, setBackgrnd]=useState("");
+    useEffect(()=>{
+      if(archived){
+        setBackgrnd("bg-green-400")
+      }else{
+        setBackgrnd("bg-blue-400")
+      }
+    },[])
+
+  
+
   return (
-    <div  className="p-4 border  border-3 mb-2 border-orange-400 gap-1 ms-4 rounded-xl ">
-                     <h1 className=" font-bold text-2xl">{title}</h1>
-                     <p className="font-thin text-pretty text-gray-300 mb-2">
+    <div  className="p-4 border   border-3 max-sm:mb-2 mb-2 border-orange-400 gap-1 ms-4 rounded-xl
+                     max-sm:p-1 ">
+                     <h1 className=" font-bold text-2xl max-sm:text-lg ">{title}</h1>
+                     <p className="font-thin text-pretty text-gray-300 mb-2 max-sm:text-sm max-sm:mb-1 ">
                      { `${d.myWeek()}  ${d.myMonth()}${d.getDate()}  ${d.getFullYear()} `}
                       </p>
-                     <h2 className="mb-5">
+                     <h2 className="mb-5 max-sm:text-sm max-sm:mb-2">
                       {description.substring(0,20)}
                       <span className="text-xl"> {description.length>20?" ... ":""}</span>
                      </h2>
                     
-                      <div className="bottom-card grid grid-cols-2 gap-x-4 overflow-hidden">
+                      <div className="bottom-card grid grid-cols-2 gap-x-4 max-md:gap-x-1 ">
                           <button 
-                              className="border bg-yellow-500 text-white w-full px-2 py-1 rounded-lg m-auto  overflow-hidden text-center active:bg-red-90 "
-                              onClick={()=>deleteHandler(id)}
+                              className="border bg-red-500 text-white w-full px-2 py-1 rounded-lg m-auto  overflow-hidden text-center active:bg-red-90 "
+                              onClick={()=>deleteHandler(id) } 
+                              
                               >Delete
                           </button>
-                          <button  className="border bg-red-600 text-white w-full px-2 py-1 rounded-lg m-auto text-center active:bg-red-90 " onClick={()=>changeState(id)} >
-                            {  archived!==false ? "Archive":"Active"}
-                            {
-                              
-                            }
+                          <button 
+                              id="state" 
+                              className={`border  w-full px-2 py-1 rounded-lg m-auto text-center 
+                              max-sm:p-1 ${backgrnd}`}
+                              onClick={()=>stated(id)}
+                             >
+                            {  archived!==false ? "Active":"Archive"}
+                           
                           </button>
                       </div>
            </div>
