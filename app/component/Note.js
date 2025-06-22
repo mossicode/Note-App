@@ -39,7 +39,7 @@ function Note({stated, deleteHandler, title,description, id ,archived, createAt}
       }else{
         setBackgrnd("bg-blue-400")
       }
-    },[])
+    },[data])
 
   
 
